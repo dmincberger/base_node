@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <button id="one" onclick="addOne()">add one</button>
+    <button id="many">add many</button>
+    <button id="delete">delete selected</button>
+    <button id="update">update selected</button>
+    <button id="all">get all</button>
+    <button id="purge">delete all</button>
+    <select name="nazwa_zwierza" id="nazwa_zwierza">
+        <option value="pies">pies</option>
+        <option value="kot">krowa</option>
+        <option value="krowa">kot</option>
+        <option value="default">default</option>
+    </select>
+    <select name="kolor_zwierza" id="kolor_zwierza">
+        <option value="bialy">bialy</option>
+        <option value="default">default</option>
+        <option value="czarny">czarny</option>
+    </select>
+</body>
+
+</html>
+
+<script>
+
+    async function addOne() {
+        let nazwa = document.getElementById("nazwa_zwierza").value
+        let kolor = document.getElementById("kolor_zwierza").value
+        console.log("NAZWA: " + typeof nazwa);
+        console.log("KOLOR: " + typeof kolor);
+        let data = {
+            nazwa: nazwa,
+            kolor: kolor
+        }
+        let options = {
+            method: "POST",
+            body: data
+        }
+        let adres = "/addone"
+        const response = await fetchPost(adres, options)
+        console.log(JSON.stringify(response));
+    }
+
+    async function fetchPost(adres, options) {
+        let request = await fetch(adres, options)
+        if (!request.ok) {
+            console.log("BLAD W REQUESCIE: " + request.status);
+        } else {
+            return await response.json()
+        }
+    }
+
+</script>

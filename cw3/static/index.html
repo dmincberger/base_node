@@ -9,13 +9,14 @@
 </head>
 
 <body>
-    <button id="klik">KLICK MIE</button>
+    <button id="klik" onclick="getData()">KLICK MIE</button>
 
 </body>
 
 </html>
 
 <script>
+    console.log("E");
     const fetchPost = async () => {
 
         const data = JSON.stringify({
@@ -33,7 +34,11 @@
             return response.status
         else
             return await response.text()
+    }
 
+    async function getData() {
+        const data = await fetchPost()
+        console.log("DATA: " + data);
     }
 
 </script>

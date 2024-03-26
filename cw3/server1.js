@@ -1,4 +1,4 @@
-import { createServer } from "http";
+import { createServer, ServerResponse } from "http";
 import { readFile } from "fs";
 import path from "path";
 const __dirname = path.resolve();
@@ -19,7 +19,7 @@ const server = createServer((req, res) => {
 
             break;
         case "POST":
-
+            Odpowiedz(req, res)
             break;
     }
 })
@@ -27,3 +27,18 @@ const server = createServer((req, res) => {
 server.listen(3000, () => {
     console.log(`serwer startuje na porcie ${PORT}`)
 });
+
+function Odpowiedz(req, res) {
+    let body = "";
+
+    req.on("data", (data) => {
+        console.log("data: " + data)
+        body += data.toString();
+    })
+
+    req.on("end", (data) => {
+        console.log(body)
+        res.writeHead(200, { "Content-type": "text/plain;charset=utf-8" });
+        res.end(body);
+    })
+}
